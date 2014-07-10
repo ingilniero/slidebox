@@ -31,13 +31,14 @@
 }
 
 .slidebox-left {
-    background: rgba(128, 128, 128, 0.5) url(../images/left-arrow.png) center center no-repeat;
-    left: 0;
-    cursor: w-resize;
+  background: rgba(128, 128, 128, 0.5) image_url('../images/left-arrow.png') center center no-repeat;
+  left: 0;
+  cursor: pointer;
 }
 
 .slidebox-right {
-    background: rgba(128, 128, 128, 0.5) url(../images/right-arrow.png) center center no-repeat;
-    right: 0;
-    cursor: e-resize;
+  background: rgba(128, 128, 128, 0.5) image_url('../images/right-arrow.png') center center no-repeat;
+  right: 0;
+  cursor: pointer;
 }
+

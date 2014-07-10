@@ -11,7 +11,7 @@
 
 .slidebox {
     height: 100%;
-    overflow-x: auto;
+    overflow-x: hidden;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch; /* iOS swipe-scroll support */
     padding: 10px;
@@ -33,11 +33,11 @@
 .slidebox-left {
     background: rgba(128, 128, 128, 0.5) url(../images/left-arrow.png) center center no-repeat;
     left: 0;
-    cursor: w-resize;
+    cursor: pointer;
 }
 
 .slidebox-right {
     background: rgba(128, 128, 128, 0.5) url(../images/right-arrow.png) center center no-repeat;
     right: 0;
-    cursor: e-resize;
+    cursor: pointer;
 }
