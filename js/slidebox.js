@@ -29,6 +29,8 @@ angular.module('Slidebox', [])
                 velocity = 0,
                 defaultOpacity = Number(getComputedStyle(leftEl).opacity),
                 maxVelocity = Number(attrs.speed) || 25,
+                perScroll = Number(attrs.perScroll) || 4,
+                itemWidth = element.clientWidth / perScroll,
                 interval,
                 didScroll = true; // trigger an initial check on load
 
@@ -82,6 +84,14 @@ angular.module('Slidebox', [])
                     leftSide = element.getBoundingClientRect().left;
                 return (clientX - leftSide) / width;
             };
+
+
+          leftEl.addEventListener('click', function(){
+            interval = setInterval(function () {
+              content.scrollLeft += velocity;
+              didScroll = true;
+            }, 50);
+          });
 
             function updateVelocity (controlEl, xPos, isLeft) {
                 var scale = getVelocityScalar(controlEl, xPos),
