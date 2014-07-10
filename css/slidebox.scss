@@ -30,12 +30,12 @@
 }
 
 .slidebox-left {
-  background: rgba(128, 128, 128, 0.5) image_url('../images/left-arrow.png') center center no-repeat;
-  left: 0;
+  background: rgba(128, 128, 128, 0.5) image_url('left-arrow.png') center center no-repeat;
+  left: -50px;
 }
 
 .slidebox-right {
-  background: rgba(128, 128, 128, 0.5) image_url('../images/right-arrow.png') center center no-repeat;
-  right: 0;
+  background: rgba(128, 128, 128, 0.5) image_url('right-arrow.png') center center no-repeat;
+  right: -50px;
 }
 
