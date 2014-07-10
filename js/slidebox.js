@@ -103,28 +103,6 @@ angular.module('Slidebox', [])
                 velocity = round(scale * maxVelocity);
             }
 
-            /**
-             * Hide control when scrolled all the way to the end
-             */
-            function updateControlVisability () {
-                if (!didScroll) {
-                    return;
-                }
-
-                if (content.scrollLeft === 0) {
-                    leftEl.style.display = 'none';
-                } else {
-                    leftEl.style.display = 'block';
-                }
-
-                if (content.scrollLeft === content.scrollWidth - content.offsetWidth) {
-                    rightEl.style.display = 'none';
-                } else {
-                    rightEl.style.display = 'block';
-                }
-                didScroll = false;
-            }
-
             content.addEventListener('scroll', function () {
                 didScroll = true;
             });
