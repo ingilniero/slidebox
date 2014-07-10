@@ -125,42 +125,6 @@ angular.module('Slidebox', [])
                 didScroll = false;
             }
 
-            leftEl.addEventListener('mouseover', function () {
-                startScroll();
-            }, false);
-            leftEl.addEventListener('mousemove', function (event) {
-                updateVelocity(leftEl, event.clientX, true);
-            }, false);
-            leftEl.addEventListener('mouseout', function () {
-                stopScroll(leftEl);
-            }, false);
-            leftEl.addEventListener('touchstart', function (event) {
-                event.preventDefault(); // cancel mouse event
-                touchStart(leftEl, true);
-            }, false);
-            leftEl.addEventListener('touchend', function (event) {
-                event.preventDefault(); // cancel mouse event
-                stopScroll(leftEl);
-            }, false);
-
-            rightEl.addEventListener('mouseover', function () {
-                startScroll();
-            });
-            rightEl.addEventListener('mousemove', function (event) {
-                updateVelocity(rightEl, event.clientX, false);
-            });
-            rightEl.addEventListener('mouseout', function  () {
-                stopScroll(rightEl);
-            }, false);
-            rightEl.addEventListener('touchstart', function (event) {
-                event.preventDefault(); // cancel mouse event
-                touchStart(rightEl, false);
-            }, false);
-            rightEl.addEventListener('touchend', function (event) {
-                event.preventDefault(); // cancel mouse event
-                stopScroll(rightEl);
-            }, false);
-
             content.addEventListener('scroll', function () {
                 didScroll = true;
             });
