@@ -21,24 +21,21 @@
 }
 
 .slidebox-controls {
-    border: #fff 1px solid;
-    border-radius: 3px;
-    opacity: 0.5;
-    position: absolute;
-    top: 0;
-    bottom: 15px; /* don't cover scrollbar */
-    width: 10%;
+  position: absolute;
+  top: 45%;
+  bottom: 15px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
 }
 
 .slidebox-left {
   background: rgba(128, 128, 128, 0.5) image_url('../images/left-arrow.png') center center no-repeat;
   left: 0;
-  cursor: pointer;
 }
 
 .slidebox-right {
   background: rgba(128, 128, 128, 0.5) image_url('../images/right-arrow.png') center center no-repeat;
   right: 0;
-  cursor: pointer;
 }
 
