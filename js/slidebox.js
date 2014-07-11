@@ -24,21 +24,24 @@ angular.module('Slidebox', [])
         scope: { length: '@length' },
         link: function ($scope, element, attrs) {
           $scope.$watch('length', function(newValue, oldValue){
-            if(newValue!=''){
+            if(!_.isUndefined(newValue)){
               content.children[0].style.width = itemWidth * newValue + 'px';
             }
           });
+
+          $scope.$parent.$watch('vm.finishedRender', function(newValue, oldValue){
+            if(!_.isUndefined(newValue)){
+              setItemsWidth(itemWidth);
+            }
+          });
+
           var content = element.children()[0],
               leftEl = element.children()[1],
               rightEl = element.children()[2],
               perPage = Number(attrs.perPage) || 4,
               itemWidth = content.clientWidth / perPage,
-              interval,
-              didScroll = true; // trigger an initial check on load
-
-          if (attrs.contentClass) {
-            content.children[0].className += ' ' + attrs.contentClass;
-          }
+              items = content.children[0].children,
+              interval;
 
 
           rightEl.addEventListener('click', function(){
@@ -62,6 +65,29 @@ angular.module('Slidebox', [])
             }, 1);
           });
 
+          function setItemsWidth(width){
+            for(var i = 0; i < items.length; i++){
+              items[i].style.width = (width-40)+'px';
+              items[i].style.margin = '20px';
+              items[i].classList.add('slidebox-item');
+            }
+          }
+
         }
       };
+    })
+
+
+    .directive('slideboxItemsReady', function ($timeout) {
+      return {
+        restrict: 'A',
+        link: function (scope, element, attr) {
+
+          if (scope.$last === true) {
+            $timeout(function() {
+              scope.$parent.vm.finishedRender = true;
+            });
+          }
+        }
+      }
     });

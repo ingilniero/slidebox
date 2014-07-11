@@ -6,15 +6,19 @@
  */
 
 .slidebox-container {
-    position: relative;
+  position: relative;
 }
 
 .slidebox {
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch; /* iOS swipe-scroll support */
-    padding: 10px;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch; /* iOS swipe-scroll support */
+  padding: 10px;
+
+  .slidebox-item {
+    float: left;
+  }
 }
 
 .slidebox-content {
