@@ -38,8 +38,10 @@ angular.module('Slidebox', [])
           var content = element.children()[0],
               leftEl = element.children()[1],
               rightEl = element.children()[2],
-              perPage = Number(attrs.perPage) || 4,
-              itemWidth = content.clientWidth / perPage,
+              perPageDesktop = Number(attrs.perPageDesktop) || 4,
+              perPageTablet = Number(attrs.perPageTablet) || 3,
+              perPagePhone = Number(attrs.perPagePhone) || 1,
+              itemWidth = content.clientWidth / getPageSize(),
               items = content.children[0].children,
               interval;
 
@@ -72,6 +74,28 @@ angular.module('Slidebox', [])
               items[i].classList.add('slidebox-item');
             }
           }
+
+          function recalculateWidths(){
+            itemWidth = content.clientWidth / getPageSize();
+            setItemsWidth(itemWidth);
+          }
+
+          function getPageSize(){
+            var width = window.innerWidth;
+            switch (true) {
+              case (width < 980 && width > 769):
+                return perPageTablet;
+                break;
+              case (width < 768):
+                return perPagePhone;
+                break;
+              default:
+                return perPageDesktop;
+                break;
+            }
+          }
+
+          window.onresize = recalculateWidths;
 
         }
       };
