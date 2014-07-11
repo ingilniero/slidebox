@@ -25,7 +25,7 @@ angular.module('Slidebox', [])
         link: function ($scope, element, attrs) {
           $scope.$watch('length', function(newValue, oldValue){
             if(!_.isUndefined(newValue)){
-              content.children[0].style.width = itemWidth * newValue + 'px';
+              content.children[0].style.width = itemWidth * newValue + 20 + 'px';
             }
           });
 
@@ -41,27 +41,27 @@ angular.module('Slidebox', [])
               perPageDesktop = Number(attrs.perPageDesktop) || 4,
               perPageTablet = Number(attrs.perPageTablet) || 3,
               perPagePhone = Number(attrs.perPagePhone) || 1,
-              itemWidth = content.clientWidth / getPageSize(),
+              itemWidth = (content.clientWidth - 20) / getPageSize(),
               items = content.children[0].children,
               interval;
 
 
           rightEl.addEventListener('click', function(){
-            var limit = content.scrollLeft + content.clientWidth;
+            var limit = content.scrollLeft + content.clientWidth - 20;
             var maxScroll = content.scrollWidth - content.clientWidth;
             interval = setInterval(function () {
               content.scrollLeft += 10;
-              if(content.scrollLeft > limit || content.scrollLeft >= maxScroll){
+              if(content.scrollLeft >= limit || content.scrollLeft >= maxScroll){
                 clearInterval(interval);
               }
             }, 1);
           });
 
           leftEl.addEventListener('click', function(){
-            var limit = content.scrollLeft - content.clientWidth;
+            var limit = content.scrollLeft - content.clientWidth + 20;
             interval = setInterval(function () {
               content.scrollLeft -= 10;
-              if(content.scrollLeft < limit || content.scrollLeft == 0){
+              if(content.scrollLeft <= limit || content.scrollLeft == 0){
                 clearInterval(interval);
               }
             }, 1);
@@ -69,6 +69,7 @@ angular.module('Slidebox', [])
 
           function setItemsWidth(width){
             for(var i = 0; i < items.length; i++){
+              if(_.include(items[i].classList, 'right-fix')){ break; }
               items[i].style.width = (width-40)+'px';
               items[i].style.margin = '20px';
               items[i].classList.add('slidebox-item');

@@ -11,13 +11,22 @@
 
 .slidebox {
   height: 100%;
-  overflow-x: hidden;
+  overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch; /* iOS swipe-scroll support */
   padding: 10px;
 
   .slidebox-item {
     float: left;
+  }
+
+  .right-fix{
+    width: 30px;
+    float: right;
+
+    &:before{
+      content: "\00a0 ";
+    }
   }
 }
 
