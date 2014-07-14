@@ -24,8 +24,9 @@ angular.module('Slidebox', [])
         scope: { length: '@length' },
         link: function ($scope, element, attrs) {
           $scope.$watch('length', function(newValue, oldValue){
-            if(!_.isUndefined(newValue)){
-              content.children[0].style.width = itemWidth * newValue + 20 + 'px';
+            if(newValue != ''){
+              length = newValue;
+              content.children[0].style.width = itemWidth * length + 20 + 'px';
             }
           });
 
@@ -43,11 +44,11 @@ angular.module('Slidebox', [])
               perPagePhone = Number(attrs.perPagePhone) || 1,
               itemWidth = (content.clientWidth - 20) / getPageSize(),
               items = content.children[0].children,
-              interval;
+              interval, length;
 
 
           rightEl.addEventListener('click', function(){
-            var limit = content.scrollLeft + content.clientWidth - 20;
+            var limit = getScrollLimit();
             var maxScroll = content.scrollWidth - content.clientWidth;
             interval = setInterval(function () {
               content.scrollLeft += 10;
@@ -58,14 +59,19 @@ angular.module('Slidebox', [])
           });
 
           leftEl.addEventListener('click', function(){
-            var limit = content.scrollLeft - content.clientWidth + 20;
+            var limit = getScrollLimit(true);
             interval = setInterval(function () {
               content.scrollLeft -= 10;
-              if(content.scrollLeft <= limit || content.scrollLeft == 0){
+              if(content.scrollLeft <= limit || content.scrollLeft <= 0){
                 clearInterval(interval);
               }
             }, 1);
           });
+
+          window.addEventListener('orientationchange', function(){
+            recalculateWidths();
+          });
+
 
           function setItemsWidth(width){
             for(var i = 0; i < items.length; i++){
@@ -78,6 +84,7 @@ angular.module('Slidebox', [])
 
           function recalculateWidths(){
             itemWidth = content.clientWidth / getPageSize();
+            content.children[0].style.width = itemWidth * length + 20 + 'px';
             setItemsWidth(itemWidth);
           }
 
@@ -94,6 +101,20 @@ angular.module('Slidebox', [])
                 return perPageDesktop;
                 break;
             }
+          }
+
+          function getScrollLimit(toLeft){
+            var containerWidth = getPageSize() * itemWidth;
+            if(window.innnerWidth < 768){
+              containerWidth = itemWidth;
+            }
+
+            if(toLeft){
+              return content.scrollLeft - containerWidth
+            }else{
+              return content.scrollLeft + containerWidth
+            }
+
           }
 
           window.onresize = recalculateWidths;
