@@ -1,6 +1,6 @@
 {
   "name": "multiple-slidebox",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "js/slidebox.js",
   "dependencies": {
     "hammer": "git@github.com:hammerjs/hammer.js.git#>=2.0.0",

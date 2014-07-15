@@ -1,7 +1,7 @@
 /**
  * Slidebox default styles
  * 
- * http://github.com/keithjgrant/slidebox
+ * http://github.com/gus4no/slidebox
  * Version 0.9
  */
 
@@ -13,24 +13,40 @@
   height: 100%;
   overflow-x: hidden;
   overflow-y: hidden;
-  -webkit-overflow-scrolling: touch; /* iOS swipe-scroll support */
   padding: 10px;
 
   .slidebox-item {
     float: left;
   }
+}
 
-  .right-fix{
-    width: 30px;
-    float: right;
+.right-fix{
+  width: 30px;
+  float: right;
 
-    &:before{
-      content: "\00a0 ";
-    }
+  &:before{
+    content: "\00a0 ";
   }
 }
 
 .slidebox-content {
+}
+
+.slide-indicators{
+  text-align: center;
+  .indicator{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 1px;
+    text-indent: -999px;
+    border: 1px solid #555;
+    border-radius: 10px;
+
+    &.active{
+      background: #555;
+    }
+  }
 }
 
 .slidebox-controls {
