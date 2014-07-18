@@ -59,7 +59,7 @@ angular.module('Slidebox', [])
           rightEl.addEventListener('click', scrollRight);
           leftEl.addEventListener('click', scrollLeft);
           window.addEventListener('orientationchange',recalculateWidths);
-          window.onresize = recalculateWidths;
+          window.addEventListener('resize', recalculateWidths);
 
 
           function scrollLeft(){
