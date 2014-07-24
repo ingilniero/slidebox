@@ -1,7 +1,7 @@
 /**
  * Slidebox Directive
  *
- * version 0.9
+ * version 0.11
  * http://github.com/gus4no/slidebox
  *
  * by Gustavo Robles
@@ -36,9 +36,17 @@ angular.module('Slidebox', [])
           });
 
           $scope.$parent.$watch('vm.finishedRender', function(newValue, oldValue){
-            if(typeof(newValue) != 'undefined'){
+            if(newValue == true){
+              items = content.children[0].getElementsByClassName('slidebox-item');
               setItemsWidth(itemWidth);
               setIndicators(true);
+              var hammer = Hammer(content, { touchAction: 'pan-y'});
+              hammer.on('swipeleft', scrollRight);
+              hammer.on('swiperight', scrollLeft);
+              rightEl.addEventListener('click', scrollRight);
+              leftEl.addEventListener('click', scrollLeft);
+              window.addEventListener('orientationchange',recalculateWidths);
+              window.addEventListener('resize', recalculateWidths);
             }
           });
 
@@ -50,16 +58,7 @@ angular.module('Slidebox', [])
               perPageTablet = Number(attrs.perPageTablet) || 3,
               perPagePhone = Number(attrs.perPagePhone) || 1,
               itemWidth = (content.clientWidth - 20) / getPageSize(),
-              items = content.children[0].children,
-              interval, length, lastActiveSlidePosition;
-
-          var hammer = Hammer(content, { touchAction: 'pan-y'});
-          hammer.on('swipeleft', scrollRight);
-          hammer.on('swiperight', scrollLeft);
-          rightEl.addEventListener('click', scrollRight);
-          leftEl.addEventListener('click', scrollLeft);
-          window.addEventListener('orientationchange',recalculateWidths);
-          window.addEventListener('resize', recalculateWidths);
+              items, interval, length, lastActiveSlidePosition;
 
 
           function scrollLeft(){
@@ -133,14 +132,17 @@ angular.module('Slidebox', [])
             var indicators = Math.ceil(items.length / getPageSize());
             list.innerText = '';
             for(var i = 0; i < indicators; i++){
-              indicator = document.createElement('li');
+              var indicator = document.createElement('li');
               indicator.setAttribute('position', i);
               indicator.className = 'indicator';
               list.appendChild(indicator);
             }
 
             if(firstTime){ lastActiveSlidePosition = 0; }
-            list.querySelectorAll("[position='"+ lastActiveSlidePosition +"']")[0].className += ' active';
+            var indicator = list.querySelectorAll("[position='"+ lastActiveSlidePosition +"']")[0];
+            if(typeof(indicator) != 'undefined'){
+              indicator.classList.add('active');
+            }
           }
 
           function setActiveSlide(transition){
@@ -163,7 +165,6 @@ angular.module('Slidebox', [])
       return {
         restrict: 'A',
         link: function (scope, element, attr) {
-
           if (scope.$last === true) {
             $timeout(function() {
               scope.$parent.vm.finishedRender = true;
