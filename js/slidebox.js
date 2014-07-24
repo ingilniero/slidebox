@@ -31,7 +31,7 @@ angular.module('Slidebox', [])
           $scope.$watch('length', function(newValue, oldValue){
             if(newValue != ''){
               length = newValue;
-              content.children[0].style.width = itemWidth * length + 20 + 'px';
+              content.children[0].style.width = itemWidth * length + 'px';
             }
           });
 
@@ -57,7 +57,7 @@ angular.module('Slidebox', [])
               perPageDesktop = Number(attrs.perPageDesktop) || 4,
               perPageTablet = Number(attrs.perPageTablet) || 3,
               perPagePhone = Number(attrs.perPagePhone) || 1,
-              itemWidth = (content.clientWidth - 20) / getPageSize(),
+              itemWidth = content.clientWidth / getPageSize(),
               items, interval, length, lastActiveSlidePosition;
 
 
@@ -87,15 +87,14 @@ angular.module('Slidebox', [])
           function setItemsWidth(width){
             for(var i = 0; i < items.length; i++){
               if(_.include(items[i].classList, 'right-fix')){ break; }
+              //-40 px because thats what the margin is supossed to fill in the stylesheet.
               items[i].style.width = (width-40)+'px';
-              items[i].style.margin = '20px';
-              items[i].classList.add('slidebox-item');
             }
           }
 
           function recalculateWidths(){
             itemWidth = content.clientWidth / getPageSize();
-            content.children[0].style.width = itemWidth * length + 20 + 'px';
+            content.children[0].style.width = itemWidth * length + 'px';
             setItemsWidth(itemWidth);
             setIndicators();
           }
