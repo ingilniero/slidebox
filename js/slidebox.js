@@ -106,7 +106,7 @@ angular.module('Slidebox', [])
               case(width > 980):
                 return perPageDesktop;
                 break;
-              case (width < 980 && width > 769):
+              case (width < 980 && width >= 768):
                 return perPageTablet;
                 break;
               case (width < 768):
