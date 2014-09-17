@@ -47,6 +47,7 @@ angular.module('Slidebox', [])
               leftEl.addEventListener('click', scrollLeft);
               window.addEventListener('orientationchange',recalculateWidths);
               window.addEventListener('resize', recalculateWidths);
+              updateLeftLimitStatus();
             }
           });
 
@@ -63,13 +64,29 @@ angular.module('Slidebox', [])
 
           function scrollLeft(){
             var limit = getScrollLimit(true);
+            var maxScroll = getMaxScroll();
             setActiveSlide(-1);
             interval = setInterval(function () {
               content.scrollLeft -= 10;
+
+              updateLeftLimitStatus();
+              updateRightLimitStatus(maxScroll);
+
               if(content.scrollLeft <= limit || content.scrollLeft <= 0){
                 clearInterval(interval);
               }
+
             }, 1);
+          }
+
+          function updateLeftLimitStatus() {
+            angular.element('.slidebox-left')
+                .toggleClass('is-left-limit-reached', content.scrollLeft == 0);
+          }
+
+          function updateRightLimitStatus(maxScroll) {
+            angular.element('.slidebox-right')
+                .toggleClass('is-right-limit-reached', content.scrollLeft == maxScroll);
           }
 
           function scrollRight(){
@@ -78,6 +95,10 @@ angular.module('Slidebox', [])
             var maxScroll = getMaxScroll();
             interval = setInterval(function () {
               content.scrollLeft += 10;
+
+              updateLeftLimitStatus();
+              updateRightLimitStatus(maxScroll);
+
               if(content.scrollLeft >= limit || content.scrollLeft >= maxScroll){
                 clearInterval(interval);
               }
