@@ -75,7 +75,7 @@ angular.module('Slidebox', [])
           function scrollRight(){
             var limit = getScrollLimit();
             setActiveSlide(1);
-            var maxScroll = content.scrollWidth - content.clientWidth;
+            var maxScroll = getMaxScroll();
             interval = setInterval(function () {
               content.scrollLeft += 10;
               if(content.scrollLeft >= limit || content.scrollLeft >= maxScroll){
@@ -112,6 +112,10 @@ angular.module('Slidebox', [])
                 return perPagePhone;
                 break;
             }
+          }
+
+          function getMaxScroll() {
+            return content.scrollWidth - content.clientWidth;
           }
 
           function getScrollLimit(toLeft){
